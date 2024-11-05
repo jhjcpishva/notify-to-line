@@ -24,12 +24,12 @@ app: Flask
 
 
 def setup_app():
-    access_token = input("input LINE channel access token:")
+    access_token = input("input LINE channel access token: ")
     assert (len(access_token) != 0)
-    secret = input("input LINE channel secret:")
+    secret = input("input LINE channel secret: ")
     assert (len(secret) != 0)
     print(f"open {LLMS_HOST}/login and input the code")
-    code = input("code:")
+    code = input("code: ")
     assert (len(code) != 0)
 
     auth_collect = requests.post(f"{LLMS_HOST}/api/v1/auth/collect", json={"code": code})
