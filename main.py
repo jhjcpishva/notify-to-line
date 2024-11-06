@@ -65,7 +65,7 @@ def serve_app(config: AppConfig):
             result = line_bot_api.push_message(PushMessageRequest(
                 to=config.user_id,
                 messages=[TextMessage(
-                    text=data["message"].trim()
+                    text=data["message"].strip()
                 )]
             ))
         return jsonify({"message": "ok", "result": result.sent_messages[0].__dict__})
