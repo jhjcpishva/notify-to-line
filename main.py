@@ -8,6 +8,7 @@ from linebot.v3.messaging import (
     ApiClient,
     MessagingApi,
     PushMessageRequest,
+    PushMessageResponse,
     TextMessage,
 )
 
@@ -75,6 +76,16 @@ def serve_app(config: AppConfig):
     app.config["DEBUG"] = True
 
     configuration = Configuration(access_token=config.line_channel_access_token)
+    def send_text_message(message: str) -> PushMessageResponse:
+        with ApiClient(configuration) as api_client:
+            line_bot_api = MessagingApi(api_client)
+            result = line_bot_api.push_message(PushMessageRequest(
+                to=config.user_id,
+                messages=[TextMessage(
+                    text=message.strip()
+                )]
+            ))
+            return result
 
     @app.route('/', methods=['GET'])
     def index():
@@ -83,14 +94,13 @@ def serve_app(config: AppConfig):
     @app.route('/text', methods=['POST'])
     def text():
         data = request.get_json()
-        with ApiClient(configuration) as api_client:
-            line_bot_api = MessagingApi(api_client)
-            result = line_bot_api.push_message(PushMessageRequest(
-                to=config.user_id,
-                messages=[TextMessage(
-                    text=data["message"].strip()
-                )]
-            ))
+        result = send_text_message(data['message'])
+        return jsonify({"message": "ok", "result": result.sent_messages[0].__dict__})
+
+    @app.route('/text/raw', methods=['POST'])
+    def text_raw():
+        data = request.get_data(as_text=True)
+        result = send_text_message(data)
         return jsonify({"message": "ok", "result": result.sent_messages[0].__dict__})
 
     app.run(host="0.0.0.0", port=8001)
