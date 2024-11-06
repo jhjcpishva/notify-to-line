@@ -31,6 +31,7 @@ def setup_app():
     """
     access_token: str
     secret: str
+    user_id: str
 
     if len(config.LINE_CHANNEL_ACCESS_TOKEN):
         access_token = config.LINE_CHANNEL_ACCESS_TOKEN
@@ -44,25 +45,30 @@ def setup_app():
         secret = input("input LINE channel access token: ")
         assert (len(secret) != 0)
 
-    # open LineLoginMicroService
-    login_url = f"{config.LLMS_HOST}/login"
-    print(f"open '{login_url}' and input the code")
-    import webbrowser
-    webbrowser.open(login_url, autoraise=True)
+    if len(config.USER_ID):
+        user_id = config.USER_ID
+    else:
+        # open LineLoginMicroService
+        login_url = f"{config.LLMS_HOST}/login"
+        print(f"open '{login_url}' and input the code")
+        import webbrowser
+        webbrowser.open(login_url, autoraise=True)
 
-    code = input("code: ")
-    assert (len(code) != 0)
+        code = input("code: ")
+        assert (len(code) != 0)
 
-    auth_collect = requests.post(f"{config.LLMS_HOST}/api/v1/auth/collect", json={"code": code})
-    session_id = auth_collect.json()["session"]
-    profile = requests.get(f"{config.LLMS_HOST}/api/v1/sessions/{session_id}/")
-    print(profile.json())
+        auth_collect = requests.post(f"{config.LLMS_HOST}/api/v1/auth/collect", json={"code": code})
+        session_id = auth_collect.json()["session"]
+        profile = requests.get(f"{config.LLMS_HOST}/api/v1/sessions/{session_id}/")
+        print(profile.json())
+        user_id = profile.json()["user_id"]
+
 
     with open(config.CONFIG_FILE, 'w') as fp:
         json.dump({
             "access_token": access_token,
             "secret": secret,
-            "user_id": profile.json()["user_id"],
+            "user_id": user_id,
         }, fp=fp, indent=2)
 
     print(f"Configuration saved to '{config.CONFIG_FILE}'")
