@@ -12,6 +12,6 @@ LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", "")
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", "")
 LINE_USER_ID = os.getenv("LINE_USER_ID", "")
 LLMS_HOST = os.getenv("LLMS_HOST", "")
-CONFIG_FILE = os.getenv("CONFIG_FILE", "_config.json")
+CONFIG_FILE = os.getenv("CONFIG_FILE", "config.json")
 
 PORT = int(os.getenv("PORT", "8001"))
