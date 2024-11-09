@@ -2,22 +2,15 @@
 
 ## Overview
 
-REST API to send LINE Message to single user.
-
-It's aimed as sample project to use [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService)
-
+This is a REST API for sending LINE messages to a single user. It serves as a sample project for using the [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService).
 
 ## Setup
 
 ### Preparation
 
-You will need to setup your LINE Official Account and Enabled Messaging API for it.
+First, set up a LINE Official Account and enable the Messaging API.
 
-You will need `Channel access token (long-lived)` and `Channel secret` to use this service.
-
-To collect `LINE_USER_ID` you can use [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService)
-
-or provide `.env` file with following credentials
+You'll need the `Channel access token (long-lived)` and `Channel secret` to use this service. To obtain a `LINE_USER_ID`, you can use the [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService) or manually provide the credentials in a `.env` file as follows:
 
 ```env:.env
 LINE_CHANNEL_ACCESS_TOKEN=Or3x....
@@ -39,13 +32,11 @@ docker run \
 
 ## Usage
 
-Recommend to use `http` cli command from [HTTPie](https://www.postman.com/cli) to test this service.
-
+We recommend using the `http` CLI command from [HTTPie](https://www.postman.com/cli) to test this service.
 
 ### Send Text Message `/text`
 
-Send Text Message by JSON format `{ "message": "Hello World" }`
- body
+Send a text message in JSON format with a body like `{ "message": "Hello World" }`.
 
 #### Request
 
@@ -76,7 +67,7 @@ HTTP/1.1 200 OK
 
 ### Send Text Message (Raw) `/text/raw`
 
-You can send text message with plain text input.
+You can also send a text message using plain text input.
 
 #### Request
 
