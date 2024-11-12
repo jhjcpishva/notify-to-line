@@ -45,8 +45,8 @@ def setup_app():
         secret = input("input LINE channel access token: ")
         assert (len(secret) != 0)
 
-    if len(config.USER_ID):
-        user_id = config.USER_ID
+    if len(config.LINE_USER_ID):
+        user_id = config.LINE_USER_ID
     else:
         # open LineLoginMicroService
         login_url = f"{config.LLMS_HOST}/login"
