@@ -2,7 +2,8 @@
 
 ## Overview
 
-This is a REST API for sending LINE messages to a single user. It serves as a sample project for using the [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService).
+- Serves REST API for sending LINE messages to a single user.
+- A sample project that uses the [line-login-micro-service](https://github.com/jhjcpishva/line-login-micro-service).
 
 ## Setup
 
@@ -10,7 +11,7 @@ This is a REST API for sending LINE messages to a single user. It serves as a sa
 
 First, set up a LINE Official Account and enable the Messaging API.
 
-You'll need the `Channel access token (long-lived)` and `Channel secret` to use this service. To obtain a `LINE_USER_ID`, you can use the [LineLoginMicroService](https://github.com/jhjcpishva/LineLoginMicroService) or manually provide the credentials in a `.env` file as follows:
+You'll need the `Channel access token (long-lived)` and `Channel secret` to use this service. To obtain a `LINE_USER_ID`, you can use the [line-login-micro-service](https://github.com/jhjcpishva/line-login-micro-service) or manually provide the credentials in a `.env` file as follows:
 
 ```env:.env
 LINE_CHANNEL_ACCESS_TOKEN=Or3x....
@@ -21,7 +22,7 @@ LINE_USER_ID=U1234....
 ### Docker
 
 ```sh
-docker build -t notifytoline .
+docker build -t notify-to-line .
 
 docker run \
   -it --rm \
