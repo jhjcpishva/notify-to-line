@@ -27,7 +27,7 @@ docker run \
   -it --rm \
   -p 8001:8001 \
   -v $PWD/config.json:/app/config.json \
-  notifytoline
+  notify-to-line
 ```
 
 ## Usage
