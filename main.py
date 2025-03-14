@@ -18,7 +18,6 @@ import config
 @dataclass
 class AppConfig:
     line_channel_access_token: str
-    line_channel_secret: str
     user_id: str
 
 
@@ -30,7 +29,6 @@ def setup_app():
     setup config.json
     """
     access_token: str
-    secret: str
     user_id: str
 
     if len(config.LINE_CHANNEL_ACCESS_TOKEN):
@@ -38,12 +36,6 @@ def setup_app():
     else:
         access_token = input("input LINE channel access token: ")
         assert (len(access_token) != 0)
-
-    if len(config.LINE_CHANNEL_SECRET):
-        secret = config.LINE_CHANNEL_SECRET
-    else:
-        secret = input("input LINE channel access token: ")
-        assert (len(secret) != 0)
 
     if len(config.LINE_USER_ID):
         user_id = config.LINE_USER_ID
@@ -67,7 +59,6 @@ def setup_app():
     with open(config.CONFIG_FILE, 'w') as fp:
         json.dump({
             "access_token": access_token,
-            "secret": secret,
             "user_id": user_id,
         }, fp=fp, indent=2)
 
@@ -117,7 +108,6 @@ def load_config() -> AppConfig:
         data = json.load(fp)
         return AppConfig(
             line_channel_access_token=data["access_token"],
-            line_channel_secret=data["secret"],
             user_id=data["user_id"]
         )
 

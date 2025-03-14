@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-LABEL org.opencontainers.image.source="https://github.com/jhjcpishva/NotifyToLine"
+LABEL org.opencontainers.image.source="https://github.com/jhjcpishva/notify-to-line"
 
 RUN mkdir /app/
 WORKDIR /app
