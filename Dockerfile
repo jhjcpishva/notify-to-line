@@ -1,12 +1,19 @@
-FROM python:3.11-slim
+FROM python:3.13-slim
 LABEL org.opencontainers.image.source="https://github.com/jhjcpishva/notify-to-line"
 
-RUN mkdir /app/
+# Install uv.
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+# Copy only necessary files first to leverage caching
+COPY pyproject.toml uv.lock /app/
 
-COPY *.py /app/.
-CMD ["python", "main.py"]
+# Install dependencies
+RUN uv sync --frozen --no-cache
 
+# Copy application files
+COPY . /app
+
+# Run the application
+CMD ["uv", "run", "main.py"]
